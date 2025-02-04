@@ -11,7 +11,9 @@ const Login = (): JSX.Element => {
                 <TextInput style={styles.input} value="Email Address" />
                 <TextInput style={styles.input} value="Password" />
             </View>
+            <View style={{alignItems: 'flex-start',marginLeft: 24}}>
             <Button label="Submit"/>
+            </View>
             <View style={styles.footer}>
                 <Text style={styles.footerText}>Not registered?</Text>
                 <Text style={styles.footerLink}>Sign up here!</Text>
@@ -45,7 +47,8 @@ const styles = StyleSheet.create({
         marginBottom: 16
     },
     footer: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginLeft: 27
     },
     footerText: {
         fontSize: 14,
