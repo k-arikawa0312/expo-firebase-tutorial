@@ -13,7 +13,7 @@ const Create = (): JSX.Element => {
                 <TextInput style={styles.input} value=''/>
             </View>
             <CircleButton>
-            <Icon name="check" size={40} color="#ffffff"/>
+            <Icon name="checkmark" size={40} color="#ffffff"/>
             </CircleButton>
         </KeyboardAvoidingView>
     )
