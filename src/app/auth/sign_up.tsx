@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from "react-native"
 import Header from "../../components/Header"
 import Button from "../../components/button"
+import { Link } from "expo-router"
 
 const Signup = (): JSX.Element => {
     return (
@@ -11,12 +12,16 @@ const Signup = (): JSX.Element => {
                 <TextInput style={styles.input} value="Email Address" />
                 <TextInput style={styles.input} value="Password" />
             </View>
+            <View style={{alignItems: 'flex-start',marginLeft: 24}}>
             <Button label="Submit"/>
+            </View>
             <View style={styles.footer}>
                 <Text style={styles.footerText}>Already registered?</Text>
+                <Link href='/auth/log_in' asChild>
                 <TouchableOpacity>
                 <Text style={styles.footerLink}>Log In.</Text>
                 </TouchableOpacity>
+                </Link>
             </View>
         </View>
     )
@@ -47,7 +52,8 @@ const styles = StyleSheet.create({
         marginBottom: 16
     },
     footer: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginLeft: 27
     },
     footerText: {
         fontSize: 14,

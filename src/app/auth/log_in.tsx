@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from "react-native"
 import Header from "../../components/Header"
 import Button from "../../components/button"
+import { Link } from "expo-router"
 
 const Login = (): JSX.Element => {
     return (
@@ -16,9 +17,11 @@ const Login = (): JSX.Element => {
             </View>
             <View style={styles.footer}>
                 <Text style={styles.footerText}>Not registered?</Text>
+                <Link href='/auth/sign_up' asChild>
                 <TouchableOpacity>
                 <Text style={styles.footerLink}>Sign up here!</Text>
                 </TouchableOpacity>
+                </Link>
             </View>
         </View>
     )
