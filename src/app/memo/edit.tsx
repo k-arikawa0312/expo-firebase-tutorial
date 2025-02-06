@@ -13,7 +13,7 @@ const Edit = (): JSX.Element => {
                 <TextInput style={styles.input} value={'買い物\nリスト'}/>
             </View>
             <CircleButton>
-            <Icon name="check" size={40} color="#ffffff"/>
+            <Icon name="checkmark" size={40} color="#ffffff"/>
             </CircleButton>
         </KeyboardAvoidingView>
     )
