@@ -4,12 +4,15 @@ import {
 import Icon from "../../components/Icon"
 import CircleButton from "../../components/CircleButton"
 import { router } from "expo-router"
-import { addDoc, collection } from "firebase/firestore"
-import { db } from "../../config"
+import { addDoc, collection, Timestamp } from "firebase/firestore"
+import { auth, db } from "../../config"
+import { useState } from "react"
 
-const handlePress = (): void => {
-    addDoc(collection(db, 'memos'), {
-        bodyText: 'test'
+const handlePress = (bodyText: string): void => {
+    const ref = collection(db, `users/${auth.currentUser?.uid}/memos`)
+    addDoc(ref, {
+        bodyText,
+        updatedAt: Timestamp.fromDate(new Date())
     })
         .then((docRef) => {
             console.log('success', docRef.id) 
@@ -21,12 +24,18 @@ const handlePress = (): void => {
 }
 
 const Create = (): JSX.Element => {
+    const [bodyText, setBodyText] = useState<string>('')
     return (
         <KeyboardAvoidingView behavior="height" style={styles.container}>
             <View style={styles.inputContainer}>
-                <TextInput style={styles.input} value=''/>
+                <TextInput 
+                    multiline
+                    style={styles.input} 
+                    value={bodyText}
+                    onChangeText={(text) => { setBodyText(text) }}
+                />
             </View>
-            <CircleButton onPress={handlePress}>
+            <CircleButton onPress={() => {handlePress(bodyText) }}>
             <Icon name="checkmark" size={40} color="#ffffff"/>
             </CircleButton>
         </KeyboardAvoidingView>
