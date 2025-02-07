@@ -12,8 +12,8 @@ const handlePress = (email: string, password: string): void => {
             router.replace('/memo/list')
         })
         .catch((error) => {
-            const {code, message } = error
-            console.error(code, message)
+            const { code, message } = error
+            console.log(code, message)
             Alert.alert(message)
         })
 }
@@ -50,7 +50,7 @@ const Signup = (): JSX.Element => {
             </View>
             <View style={styles.footer}>
                 <Text style={styles.footerText}>Already registered?</Text>
-                <Link href='/auth/log_in' asChild>
+                <Link href='/auth/log_in' asChild replace>
                 <TouchableOpacity>
                 <Text style={styles.footerLink}>Log In.</Text>
                 </TouchableOpacity>
