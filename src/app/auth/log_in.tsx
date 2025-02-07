@@ -9,14 +9,30 @@ const handlePress = (): void => {
 }
 
 const Login = (): JSX.Element => {
-    const [email, SetEmail] = useState<string>('')
-    const [password, SetPassword] = useState<string>('')
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
     return (
         <View style={styles.container}>
             <View style={styles.inner}>
                 <Text style={styles.title}>Login</Text>
-                <TextInput style={styles.input} value={email} onChangeText={(text) => { SetEmail(text) }} autoCapitalize="none"/>
-                <TextInput style={styles.input} value={password} onChangeText={(text) => { SetPassword(text) }} autoCapitalize="none"/>
+                <TextInput 
+                    style={styles.input} 
+                    value={email} 
+                    onChangeText={(text) => { setEmail(text) }} 
+                    autoCapitalize="none" 
+                    keyboardType="email-address" 
+                    placeholder="Email Address"
+                    textContentType="emailAddress"
+                />
+                <TextInput 
+                    style={styles.input} 
+                    value={password} 
+                    onChangeText={(text) => { setPassword(text) }} 
+                    autoCapitalize="none" 
+                    secureTextEntry
+                    placeholder="Password"
+                    textContentType="password"
+                />
             </View>
             <View style={{alignItems: 'flex-start',marginLeft: 24}}>
             <Button label="Submit" onPress={handlePress}/>

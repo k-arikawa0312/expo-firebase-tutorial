@@ -35,5 +35,7 @@
     "typescript": "^5.3.3",
     "typescript-eslint": "^8.19.1"
   },
-  "private": true
+  "private": true,
+  "editor.formatOnSave": true,
+  "prettier.requireConfig": true
 }
