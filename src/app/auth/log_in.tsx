@@ -4,7 +4,7 @@ import { Link, router } from "expo-router"
 
 const handlePress = (): void => {
 
-    router.push('/memo/list')
+    router.replace('/memo/list')
 }
 
 const Login = (): JSX.Element => {
