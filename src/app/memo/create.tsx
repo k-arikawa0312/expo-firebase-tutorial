@@ -1,5 +1,5 @@
 import { 
-    StyleSheet, View, TextInput, KeyboardAvoidingView
+    StyleSheet, View, TextInput
 } from "react-native"
 import Icon from "../../components/Icon"
 import CircleButton from "../../components/CircleButton"
@@ -7,6 +7,7 @@ import { router } from "expo-router"
 import { addDoc, collection, Timestamp } from "firebase/firestore"
 import { auth, db } from "../../config"
 import { useState } from "react"
+import KeyboardSafeView from "../../components/KeyboardAvoidingView"
 
 const handlePress = (bodyText: string): void => {
     const ref = collection(db, `users/${auth.currentUser?.uid}/memos`)
@@ -26,19 +27,20 @@ const handlePress = (bodyText: string): void => {
 const Create = (): JSX.Element => {
     const [bodyText, setBodyText] = useState<string>('')
     return (
-        <KeyboardAvoidingView behavior="height" style={styles.container}>
+        <KeyboardSafeView style={styles.container}>
             <View style={styles.inputContainer}>
                 <TextInput 
                     multiline
                     style={styles.input} 
                     value={bodyText}
                     onChangeText={(text) => { setBodyText(text) }}
+                    autoFocus
                 />
             </View>
             <CircleButton onPress={() => {handlePress(bodyText) }}>
             <Icon name="checkmark" size={40} color="#ffffff"/>
             </CircleButton>
-        </KeyboardAvoidingView>
+        </KeyboardSafeView>
     )
 }
 
