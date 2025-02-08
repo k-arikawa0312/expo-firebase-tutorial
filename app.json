@@ -19,7 +19,7 @@
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "k-arikawa0312.memoapp",
+      "package": "k.arikawa0312.memoapp",
       "versionCode": 1,
       "permissions": [],
       "adaptiveIcon": {
@@ -33,6 +33,14 @@
     "plugins": [
       "expo-router",
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "bfc7ea2f-a2e1-43f9-88e9-87938df77411"
+      }
+    }
   }
 }
