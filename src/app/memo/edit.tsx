@@ -1,24 +1,58 @@
 import { 
-    StyleSheet, View, TextInput, KeyboardAvoidingView
+    StyleSheet, View, TextInput, Alert
 } from "react-native"
 import Icon from "../../components/Icon"
 import CircleButton from "../../components/CircleButton"
-import { router } from "expo-router"
+import { router, useLocalSearchParams } from "expo-router"
+import { useEffect, useState } from "react"
+import { doc, getDoc, setDoc, Timestamp } from "firebase/firestore"
+import { auth, db } from "../../config"
+import KeyboardSafeView from "../../components/KeyboardAvoidingView"
 
-const handlePress = ():void => {
-    router.back()
+const handlePress = (id: string, bodyText: string): void => {
+    const ref = doc(db, `users/${auth.currentUser?.uid}/memos`, id)
+    setDoc(ref, {
+        bodyText,
+        updatedAt: Timestamp.fromDate(new Date())
+    })
+        .then(() => {
+            router.back()
+        })
+        .catch((error) => {
+            console.log(error)
+            Alert.alert('更新に失敗しました')
+        })    
 }
 
 const Edit = (): JSX.Element => {
+    const id = String(useLocalSearchParams().id)
+    const [bodyText, setBodyText] = useState('')
+    useEffect(() => {
+        const ref = doc(db, `users/${auth.currentUser?.uid}/memos`, id)
+        getDoc(ref)
+            .then((docRef) => {
+                const remoteBodyText = docRef.data()?.bodyText
+                setBodyText(remoteBodyText)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }, [])
     return (
-        <KeyboardAvoidingView behavior="height" style={styles.container}>
+        <KeyboardSafeView style={styles.container}>
             <View style={styles.inputContainer}>
-                <TextInput style={styles.input} value={'買い物\nリスト'}/>
+                <TextInput 
+                    multiline
+                    style={styles.input} 
+                    value={bodyText}
+                    onChangeText={(text) => { setBodyText(text) }}
+                    autoFocus
+                />
             </View>
-            <CircleButton onPress={handlePress}>
+            <CircleButton onPress={() => { handlePress(id, bodyText) }}>
             <Icon name="checkmark" size={40} color="#ffffff"/>
             </CircleButton>
-        </KeyboardAvoidingView>
+        </KeyboardSafeView>
     )
 }
 
@@ -27,15 +61,15 @@ const styles = StyleSheet.create({
         flex:1
     },
     inputContainer: {
-        paddingVertical:32,
-        paddingHorizontal:27,
         flex:1
     },
     input: {
         flex:1,
         textAlignVertical:'top',
         fontSize:16,
-        lineHeight:24
+        lineHeight:24,
+        paddingVertical:32,
+        paddingHorizontal:27
     }
 })
 
