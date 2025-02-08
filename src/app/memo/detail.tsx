@@ -13,17 +13,20 @@ const handlePress = (id: string): void => {
 
 const Detail = (): JSX.Element => {
     const id = String(useLocalSearchParams().id)
-    console.log(id)
     const [memo, setMemo] = useState<Memo | null>(null)
     useEffect(() => {
         const ref = doc(db, `users/${auth.currentUser?.uid}/memos`, id)
         const unsubscribe = onSnapshot(ref, (memoDoc) => {
             const { bodyText, updatedAt } = memoDoc.data() as Memo
-            setMemo({
-                id: memoDoc.id,
-                bodyText,
-                updatedAt
-            })
+            if (bodyText && updatedAt) { 
+                setMemo({
+                    id: memoDoc.id,
+                    bodyText,
+                    updatedAt
+                })
+            } else {
+                setMemo(null)
+            }
         })
         return unsubscribe
     }, [])
