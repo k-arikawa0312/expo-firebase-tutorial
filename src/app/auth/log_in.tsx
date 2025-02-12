@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from "reac
 import Button from "../../components/button"
 import { Link, router } from "expo-router"
 import { useState } from "react"
-import { signInWithEmailAndPassword } from "firebase/auth"
+import {  signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../config"
 
 const handlePress = (email: string, password: string): void => {
@@ -45,7 +45,7 @@ const Login = (): JSX.Element => {
                 />
             </View>
             <View style={{alignItems: 'flex-start',marginLeft: 24}}>
-            <Button label="Submit" onPress={() => {handlePress(email, password) }}/>
+            <Button label="Submit" onPress={() => { handlePress(email, password) }}/>
             </View>
             <View style={styles.footer}>
                 <Text style={styles.footerText}>Not registered?</Text>
