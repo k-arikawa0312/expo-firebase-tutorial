@@ -1,3 +1,3 @@
-export type loginErrorMessages = {
+export type ErrorMessages = {
     [name: string]: string
 }

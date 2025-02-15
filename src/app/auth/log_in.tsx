@@ -4,9 +4,9 @@ import { Link, router } from "expo-router"
 import { useState } from "react"
 import {  signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../config"
-import { loginErrorMessages } from "../../../types/authErrorMessages"
+import { ErrorMessages } from "../../../types/authErrorMessages"
 
-const errorMessages: loginErrorMessages = {
+const errorMessages: ErrorMessages = {
     'auth/invalid-email': "無効なメールアドレスです。",
     'auth/user-disabled': "このアカウントは無効化されています。",
     'auth/user-not-found': "メールアドレスが見つかりません。",

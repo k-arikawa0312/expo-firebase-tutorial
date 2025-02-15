@@ -4,6 +4,16 @@ import { Link, router } from "expo-router"
 import { useState } from "react"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../config"
+import { ErrorMessages } from "../../../types/authErrorMessages"
+
+const signupErrorMessages: ErrorMessages = {
+    'auth/email-already-in-use': "このメールアドレスはすでに使用されています。",
+    'auth/invalid-email': "無効なメールアドレスです。",
+    'auth/operation-not-allowed': "この認証方法は無効です。",
+    'auth/weak-password': "パスワードは6文字以上である必要があります。",
+    'auth/too-many-requests': "しばらくしてから再試行してください。",
+    'auth/timeout': "リクエストがタイムアウトしました。"
+}
 
 const handlePress = (email: string, password: string): void => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -14,7 +24,7 @@ const handlePress = (email: string, password: string): void => {
         .catch((error) => {
             const { code, message } = error
             console.log(code, message)
-            Alert.alert(message)
+            Alert.alert(signupErrorMessages[code])
         })
 }
 
