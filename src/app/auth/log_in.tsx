@@ -6,16 +6,20 @@ import {  signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../config"
 
 const handlePress = (email: string, password: string): void => {
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            console.log(userCredential.user.uid)
-            router.replace('/memo/list')
-        })
-        .catch((error) => {
-            const { code, message } = error
-            console.log(code, message)
-            Alert.alert(message)
-        })
+    if (email === '' || !password) {
+        Alert.alert("エラー", "メールアドレスとパスワードを入力してください。")
+    } else {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                console.log(userCredential.user.uid)
+                router.replace('/memo/list')
+            })
+            .catch((error) => {
+                const { code, message } = error
+                console.log(code, message)
+                Alert.alert(message)
+            })
+    }
 }
 
 const Login = (): JSX.Element => {
@@ -44,7 +48,7 @@ const Login = (): JSX.Element => {
                     textContentType="password"
                 />
             </View>
-            <View style={{alignItems: 'flex-start',marginLeft: 24}}>
+            <View style={{alignItems: 'flex-start', marginLeft: 24}}>
             <Button label="Submit" onPress={() => { handlePress(email, password) }}/>
             </View>
             <View style={styles.footer}>
