@@ -4,6 +4,17 @@ import { Link, router } from "expo-router"
 import { useState } from "react"
 import {  signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../config"
+import { loginErrorMessages } from "../../../types/authErrorMessages"
+
+const errorMessages: loginErrorMessages = {
+    'auth/invalid-email': "無効なメールアドレスです。",
+    'auth/user-disabled': "このアカウントは無効化されています。",
+    'auth/user-not-found': "メールアドレスが見つかりません。",
+    'auth/wrong-password': "パスワードが間違っています。",
+    'auth/operation-not-allowed': "この認証方法は無効です。",
+    'auth/too-many-requests': "しばらくしてから再試行してください。",
+    'auth/timeout': "リクエストがタイムアウトしました。"
+}
 
 const handlePress = (email: string, password: string): void => {
     if (email === '' || !password) {
@@ -16,8 +27,8 @@ const handlePress = (email: string, password: string): void => {
             })
             .catch((error) => {
                 const { code, message } = error
-                console.log(code, message)
-                Alert.alert(message)
+                console.log('firebaseのエラー:', code, message)
+                Alert.alert(errorMessages[code])
             })
     }
 }
