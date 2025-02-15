@@ -13,7 +13,8 @@ const errorMessages: loginErrorMessages = {
     'auth/wrong-password': "パスワードが間違っています。",
     'auth/operation-not-allowed': "この認証方法は無効です。",
     'auth/too-many-requests': "しばらくしてから再試行してください。",
-    'auth/timeout': "リクエストがタイムアウトしました。"
+    'auth/timeout': "リクエストがタイムアウトしました。",
+    'auth/invalid-credential': '不明なエラーです。メールアドレスまたはパスワードを確認してください。'
 }
 
 const handlePress = (email: string, password: string): void => {
