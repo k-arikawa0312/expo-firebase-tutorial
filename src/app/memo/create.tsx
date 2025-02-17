@@ -35,6 +35,7 @@ const Create = (): JSX.Element => {
                     value={bodyText}
                     onChangeText={(text) => { setBodyText(text) }}
                     autoFocus
+                    autoCapitalize="none"
                 />
             </View>
             <CircleButton onPress={() => {handlePress(bodyText) }}>
