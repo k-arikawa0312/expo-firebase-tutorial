@@ -1,10 +1,11 @@
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from "react-native"
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, Modal } from "react-native"
 import Button from "../../components/button"
 import { Link, router } from "expo-router"
 import { useState } from "react"
 import {  signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../config"
 import { ErrorMessages } from "../../../types/authErrorMessages"
+import { sendPasswordResetEmail } from "firebase/auth"
 
 const errorMessages: ErrorMessages = {
     'auth/invalid-email': "無効なメールアドレスです。",
@@ -34,9 +35,28 @@ const handlePress = (email: string, password: string): void => {
     }
 }
 
+const handleResetPassword = (email: string): void => {
+    if (!email) {
+        Alert.alert("エラー", "メールアドレスを入力してください。")
+        return
+    }
+
+    sendPasswordResetEmail(auth, email)
+        .then(() => {
+            Alert.alert("成功", "パスワード再設定用のメールを送信しました。")
+        })
+        .catch((error) => {
+            const { code } = error
+            const message = errorMessages[code] || "パスワード再設定中にエラーが発生しました。"
+            Alert.alert(message)
+        })
+}
+
 const Login = (): JSX.Element => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const [isModalVisible, setModalVisible] = useState<boolean>(false)
+    const [resetEmail, setResetEmail] = useState<string>('')
     return (
         <View style={styles.container}>
             <View style={styles.inner}>
@@ -61,7 +81,7 @@ const Login = (): JSX.Element => {
                 />
             </View>
             <View style={{alignItems: 'flex-start', marginLeft: 24}}>
-            <Button label="Submit" onPress={() => { handlePress(email, password) }}/>
+                <Button label="Submit" onPress={() => { handlePress(email, password) }}/>
             </View>
             <View style={styles.footer}>
                 <Text style={styles.footerText}>Not registered?</Text>
@@ -71,6 +91,31 @@ const Login = (): JSX.Element => {
                 </TouchableOpacity>
                 </Link>
             </View>
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                    <Text style={[styles.footerLink, {marginLeft: 24}]}>パスワードを忘れた場合</Text>
+                </TouchableOpacity>
+
+            <Modal
+                transparent={true}
+                visible={isModalVisible}
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <View style={styles.modalContainer}>
+                    <Text style={styles.modalTitle}>パスワード再設定</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={resetEmail}
+                        onChangeText={setResetEmail}
+                        placeholder="メールアドレスを入力"
+                        autoCapitalize="none"
+                        keyboardType="email-address"
+                    />
+                    <View style={styles.modalButtonContainer}>
+                    <Button label="送信" onPress={() => { handleResetPassword(resetEmail); setModalVisible(false) }} />
+                    <Button label="キャンセル" onPress={() => setModalVisible(false)} />
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
 }
@@ -112,6 +157,21 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 24,
         color: '#467FD3'
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    },
+    modalTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 24,
+        color: '#ffffff'
+    },
+    modalButtonContainer: {
+        flexDirection: 'row'
     }
 })
 
