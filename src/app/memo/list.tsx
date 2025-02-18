@@ -4,10 +4,11 @@ import CircleButton from "../../components/CircleButton"
 import Icon from "../../components/Icon"
 import { router, useNavigation } from "expo-router"
 import { useEffect, useState } from "react"
-import LogOutButton from "../../components/LogOutButton"
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore"
 import { auth, db } from "../../config"
 import { Memo } from "../../../types/memo"
+import LogOutButton from "../../components/LogOutButton"
+import DeleteAccountButton from "../../components/DeleteAccountButton"
 
 const handlePress = (): void => {
     router.push('/memo/create')
@@ -18,7 +19,12 @@ const List = (): JSX.Element => {
     const navigation = useNavigation()
     useEffect(() => {
         navigation.setOptions({
-            headerRight: () => { return <LogOutButton/>}
+            headerRight: () => { return (
+            <View style={{flexDirection: 'row'}}>
+                <LogOutButton/>
+                <DeleteAccountButton/>
+            </View>
+        )}
         })
     }, [])
     useEffect(() => {

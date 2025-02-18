@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, Modal } fro
 import Button from "../../components/button"
 import { Link, router } from "expo-router"
 import { useState } from "react"
-import {  signInWithEmailAndPassword, getAuth } from "firebase/auth"
+import {  signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../config"
 import { ErrorMessages } from "../../../types/authErrorMessages"
 import { sendPasswordResetEmail } from "firebase/auth"
@@ -50,38 +50,6 @@ const handleResetPassword = (email: string): void => {
             const message = errorMessages[code] || "パスワード再設定中にエラーが発生しました。"
             Alert.alert(message)
         })
-}
-
-const handleDeleteAccount = async () => {
-    const confirm = await new Promise((resolve) => {
-        Alert.alert(
-            "確認",
-            "本当にアカウントを削除しますか？",
-            [
-                { text: "キャンセル", onPress: () => resolve(false), style: "cancel" },
-                { text: "削除", onPress: () => resolve(true) }
-            ]
-        )
-    })
-
-    if (!confirm) return
-
-    const auth = getAuth()
-    const user = auth.currentUser
-
-    if (user) {
-        try {
-            await user.delete()
-            Alert.alert("成功", "アカウントが削除されました。")
-            router.replace('/auth/log_in')
-        } catch (error) {
-            const errorObj = error as { code?: string }
-            const message = errorMessages[errorObj.code ?? ''] || "アカウント削除中にエラーが発生しました。"
-            Alert.alert(message)
-        }
-    } else {
-        Alert.alert("エラー", "ユーザーがログインしていません。")
-    }
 }
 
 const Login = (): JSX.Element => {
@@ -149,9 +117,6 @@ const Login = (): JSX.Element => {
                 </View>
             </Modal>
             <View style={{alignItems: 'flex-start', marginLeft: 24}}>
-                <TouchableOpacity  onPress={handleDeleteAccount} >
-                    <Text>アカウント削除</Text>
-                </TouchableOpacity>
             </View>
         </View>
     )
