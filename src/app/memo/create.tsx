@@ -1,5 +1,6 @@
 import { 
-    StyleSheet, View, TextInput
+    StyleSheet, View, TextInput,
+    Alert
 } from "react-native"
 import Icon from "../../components/Icon"
 import CircleButton from "../../components/CircleButton"
@@ -15,11 +16,11 @@ const handlePress = (bodyText: string): void => {
         bodyText,
         updatedAt: Timestamp.fromDate(new Date())
     })
-        .then((docRef) => {
-            console.log('success', docRef.id) 
+        .then(() => {
             router.back()
         })
         .catch((error) => {
+            Alert.alert('エラー','メモの作成に失敗しました。')
             console.log(error)
         })
 }
