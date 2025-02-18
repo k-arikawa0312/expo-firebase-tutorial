@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>アカウント削除 - MemoApp</title>
+
+    <!-- Firebase initialization -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+    <style media="screen">
+      body { 
+        background: #ECEFF1; 
+        color: rgba(0,0,0,0.87); 
+        font-family: Roboto, Helvetica, Arial, sans-serif; 
+        margin: 0; 
+        padding: 0; 
+      }
+      #message { 
+        background: white; 
+        max-width: 600px; 
+        margin: 100px auto 16px; 
+        padding: 32px 24px; 
+        border-radius: 3px; 
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      }
+      #message h1 { 
+        font-size: 22px; 
+        font-weight: 300; 
+        color: rgba(0,0,0,0.6); 
+        margin: 0 0 16px;
+      }
+      #message p { 
+        line-height: 140%; 
+        margin: 16px 0 24px; 
+        font-size: 14px; 
+      }
+      #message ol { 
+        line-height: 1.6;
+        margin: 16px 0 24px;
+        font-size: 14px;
+      }
+      @media (max-width: 600px) {
+        body, #message { 
+          margin-top: 0; 
+          background: white; 
+          box-shadow: none; 
+        }
+        body { 
+          border-top: 16px solid #ffa100; 
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h1>アカウントとデータの削除方法</h1>
+      <p>アプリ内で直接アカウントとデータを削除することができます：</p>
+      <ol>
+        <li>アプリにログイン</li>
+        <li>メニューを開く</li>
+        <li>「アカウント削除」ボタンをタップ</li>
+        <li>確認ダイアログで「削除」を選択</li>
+      </ol>
+      <p>アカウントを削除すると、ユーザーデータは完全に削除され、復元することはできません。</p>
+      
+      <h1>Account and Data Deletion Process</h1>
+      <p>Users can delete their account and associated data directly within the app:</p>
+      <ol>
+        <li>Log in to the app</li>
+        <li>Open the menu</li>
+        <li>Tap "Delete Account" button</li>
+        <li>Select "Delete" in the confirmation dialog</li>
+      </ol>
+      <p>Once the account is deleted, all user data will be permanently removed and cannot be recovered.</p>
+    </div>
+  </body>
+</html>
