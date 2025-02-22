@@ -36,10 +36,6 @@ const handlePress = (email: string, password: string): void => {
 }
 
 const handleResetPassword = (email: string): void => {
-    if (!email) {
-        Alert.alert("エラー", "メールアドレスを入力してください。")
-        return
-    }
 
     sendPasswordResetEmail(auth, email)
         .then(() => {
