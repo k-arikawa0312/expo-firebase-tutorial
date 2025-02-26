@@ -6,6 +6,7 @@ import {  signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../config"
 import { ErrorMessages } from "../../../types/authErrorMessages"
 import { sendPasswordResetEmail } from "firebase/auth"
+import GoogleLoginButton from "../../components/GoogleLoginButton"
 
 const errorMessages: ErrorMessages = {
     'auth/invalid-email': "無効なメールアドレスです。",
@@ -76,6 +77,7 @@ const Login = (): JSX.Element => {
                     textContentType="password"
                 />
             </View>
+            <GoogleLoginButton />
             <View style={{alignItems: 'flex-start', marginLeft: 24}}>
                 <Button label="Submit" onPress={() => { handlePress(email, password) }}/>
             </View>
